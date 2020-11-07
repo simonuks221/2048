@@ -10,4 +10,7 @@ gameFrame.pack()
 gameManager = gm.GameManager()
 gameManager.StartGame(gameFrame)
 
+gameManager.ButtonPressed(1, 0)
+
 t.mainloop()
+
