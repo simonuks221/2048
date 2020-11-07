@@ -7,13 +7,33 @@ class GameManager:
         self.tile = np.zeros((4, 4), dtype = int)
         self.buttons = np.zeros((4, 4), dtype = object)
 
-    #Checks if tile array is full
-    def CheckTileFull(self):
-        return
-
     #Checks if game is over
     def CheckGameOver(self):
-        return
+        for y in range(4):
+            for x in range(4):
+                if self.tile[y, x] == 0: #Check if theres empty places, if yes spawn a random tile
+                    self.GenerateRandomTile()
+                    self.CheckGameOver()
+                    return
+        #No empty tiles, board full
+        for y in range(4):
+            for x in range(4):
+                if self.ValidArray(x + 1, y):
+                    if self.tile[y, x] == self.tile[y, x + 1]:
+                        return #Game is not over
+                elif self.ValidArray(x - 1, y):
+                    if self.tile[y, x] == self.tile[y, x - 1]:
+                        return
+                elif self.ValidArray(x, y+1):
+                    if self.tile[y, x] == self.tile[y+1, x]:
+                        return
+                elif self.ValidArray(x, y-1):
+                    if self.tile[y, x] == self.tile[y-1, x]:
+                        return
+        #If reached here, game over
+        self.GameOver()
+
+        
 
     #Generate a random tile with 2
     def GenerateRandomTile(self):
@@ -73,8 +93,8 @@ class GameManager:
                                 self.tile[y, x] = 0
                                 changed = True
         self.UpdateButtons()
+        #Check if game is over
         self.CheckGameOver()
-
 
     def StartGame(self, gridFrame):
         self.GenerateTiles()
