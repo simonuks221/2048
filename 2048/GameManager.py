@@ -3,9 +3,11 @@ import tkinter as tk
 import random
 
 class GameManager:
-    def __init__(self):
+    def __init__(self, scoreLabel, highscoreLabel):
         self.tile = np.zeros((4, 4), dtype = int)
         self.buttons = np.zeros((4, 4), dtype = object)
+        self.scoreLabel = scoreLabel
+        self.highscoreLabel = highscoreLabel
 
     #Checks if game is over
     def CheckGameOver(self):
